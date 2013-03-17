@@ -2,6 +2,10 @@ BoxMark
 =======
 Bookmarking tool
 
+## Development:
+* `npm install jade clientjade`
+* `make deploy`
+
 ## Useful Links
  * Jade: Templates (http://jade-lang.com/)
  * ClientJade: merges Jade template in a JS file (http://projects.jga.me/clientjade/)
