@@ -1,0 +1,4 @@
+deploy
+*.swp
+node_modules
+*~
