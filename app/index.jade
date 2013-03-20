@@ -1,8 +1,32 @@
+!!! html
 html
   head
     script(src='./scripts/require.js', data-main='scripts/boxmark')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(href="css/bootstrap.min.css", rel="stylesheet", media="screen")
+    link(href="css/bootstrap-responsive.min.css", rel="stylesheet", media="screen")
   body
-    div#top-nav-bar
-    div#tool-bar
-    div#content
-    div#page-bar
+    div.container
+      div#top-nav-bar.navbar.navbar-fixed-top
+        div.navbar-inner
+          ul.nav
+           li
+             a#urlslink.pull-left(href='#urls') Urls
+           a#titlebar.brand(href='#title') BoxMark
+           li 
+             a#tagslink.pull-right(href='#tags') Tags
+      div#content
+        table#urls
+      div#bottom-bar.navbar.navbar-fixed-bottom
+        div.navbar-inner
+          ul.nav
+            li 
+              a(href='#up')
+                i.icon-arrow-up
+            li
+              a(href='#conf')
+                i.icon-wrench
+            li 
+              a(href='#down')
+                i.icon-arrow-down
+        

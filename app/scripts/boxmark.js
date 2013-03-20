@@ -45,7 +45,8 @@ define(['jquery', 'templates'], function ($) {
         console.log(App.urls.get('miguel'));
         console.log(App.urls.rm('miguel'));
         console.log(App.urls.contains('miguel'));
-        $('body').append(jade.templates['url-item']({url:{href:'#test'}}));
+        $('#urls').html(jade.templates['url-item']({url:{href:'#test1'}}));
+        $('#urls').append(jade.templates['url-item']({url:{href:'#test2'}}));
       },
       bindings: function(){
         //TODO make general bindings (buttons)

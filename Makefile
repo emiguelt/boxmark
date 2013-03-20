@@ -12,6 +12,7 @@ js:
 
 libs:
 	cp lib/*.js $(DEPLOY)/scripts/
+	cp -r lib/bootstrap/* $(DEPLOY)/
 
 deploy: clean jade js libs
 
