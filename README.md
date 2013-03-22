@@ -13,6 +13,7 @@ Bookmarking tool
  * Node.js: http://nodejs.org
  * Bootstrap: http://twitter.github.com/bootstrap
  * Dropbox-js: https://github.com/dropbox/dropbox-js
+ * sha1.js: http://pajhome.org.uk/crypt/md5
 
 ### References & tutorials
  * http://goranperetin.com/post/26701804893/client-side-templating-with-jade-and-node-js

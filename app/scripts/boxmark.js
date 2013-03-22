@@ -1,4 +1,4 @@
-define(['jquery', 'templates'], function ($) {
+define(['jquery', 'templates', 'sammy', 'Set'], function ($, templates, sammy, Set) {
   storage = function(w, $){
     //var client = new Dropbox.Client({
     //      key: "Y5g6tpzxZuA=|ebh+5a8tXABfr2jyDdOxFdzQPnKR2sR3FWOCd+reVw==", sandbox: true
@@ -8,29 +8,7 @@ define(['jquery', 'templates'], function ($) {
   
   (function(w, $, storage){
   
-    var Set = function(){
-      
-      var values={};
-      this.add = function(obj){
-        if(!this.contains(obj.toString())){
-          values[obj.toString()]=obj;
-          return true;
-        }
-        return false;
-      };
-      this.rm = function(strkey){
-        var deleted = values[strkey];
-        delete values[strkey];
-        return deleted;
-      };
-      this.get = function(strkey){
-        return values[strkey];
-      };
-      this.contains =  function(strkey){
-          return values.hasOwnProperty(strkey);
-      };
-    };
-  
+ 
     var App = {
       urls: new Set(),
       tags: new Set(),
@@ -50,8 +28,35 @@ define(['jquery', 'templates'], function ($) {
       },
       bindings: function(){
         //TODO make general bindings (buttons)
+      },
+      
+      showAllUrls: function(sammy){
+      },
+      addUrl: function(sammy){
+      },
+      viewUrl: function(sammy){
+      },
+      editUrl: function(sammy){
+      },
+      rmUrl: function(sammy){
+      },
+      showUrlsByTag: function(sammy){
+      },         
+      showAllTags: function(sammy){
       }
     };
+
+    //ROUTES
+    sammy( function() {
+      this.get('#urls', App.showAllUrls);
+      this.post('#urls', App.addUrl);
+      this.get('#urls/:hash', App.viewUrl);
+      this.get('#urls/:hash/edit', App.editUrl);
+      this.get('#urls/:hash/remove', App.rmUrl);
+      this.get('#/:tag', App.showUrlsByTag);
+      this.post('#/:tag', App.addUrl);
+      this.get('#tags', App.showAllTags);
+    }).run();
   
     App.init();
   
