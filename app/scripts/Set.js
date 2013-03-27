@@ -1,4 +1,4 @@
-define(['sha1'],function(){
+define(function(){
   var Set = function(){
     var values={};
     this.add = function(obj){
@@ -19,6 +19,13 @@ define(['sha1'],function(){
     this.contains =  function(strkey){
         return values.hasOwnProperty(strkey);
     };
+    this.keys = function(){
+      var result = new Array
+      for(var prop in values)
+        if(values.hasOwnProperty(prop))
+          result.push(prop)
+
+    };
   };
-  return Set;
+ return Set;
 });
