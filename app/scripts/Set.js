@@ -2,8 +2,8 @@ define(function(){
   var Set = function(){
     var values={};
     this.add = function(obj){
-      if(!this.contains(obj.toString())){
-        values[obj.toString()]=obj;
+      if(!this.contains(obj.getId())){
+        values[obj.getId()]=obj;
         return true;
       }
       return false;
@@ -23,8 +23,8 @@ define(function(){
       var result = new Array
       for(var prop in values)
         if(values.hasOwnProperty(prop))
-          result.push(prop)
-
+          result.push(prop);
+      return result;
     };
   };
  return Set;

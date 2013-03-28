@@ -7,27 +7,25 @@ html
     link(href="css/bootstrap-responsive.min.css", rel="stylesheet", media="screen")
   body
     div.container
-      div#top-nav-bar.navbar.navbar-fixed-top
-        div.navbar-inner
-          ul.nav
-           li
-             a#urlslink.pull-left(href='#urls') Urls
-           a#titlebar.brand(href='#title') BoxMark
-           li 
-             a#tagslink.pull-right(href='#tags') Tags
-      div#content
-        div#chead
-        table#items
-      div#bottom-bar.navbar.navbar-fixed-bottom
-        div.navbar-inner
-          ul.nav
-            li 
-              a(href='#up')
-                i.icon-arrow-up
-            li
-              a(href='#conf')
-                i.icon-wrench
-            li 
-              a(href='#down')
-                i.icon-arrow-down
-        
+      div#top-nav-bar.row-fluid
+        div#top-left-nav.span2
+          a#urlslink.pull-left.btn(href='#urls') Urls
+        div#top-title-nav.span8
+          a#titlebar.brand(href='#add') BoxMark
+        div#right-top-nav.span2
+          a#tagslink.pull-right.btn(href='#tags') Tags
+      div#content.row-fluid
+        div#chead.row-fluid
+        table#items.row-fluid
+      div#bottom-bar.row-fluid
+        div.span4
+          a(href='#up').pull-left
+            i.icon-arrow-up
+        div.span4
+          a(href='#conf')
+            i.icon-wrench
+        div.span4
+          a(href='#down').pull-right
+            i.icon-arrow-down
+
+  include forms

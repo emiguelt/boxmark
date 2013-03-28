@@ -1,4 +1,4 @@
-define(['jquery', 'templates', 'sammy', 'Set', 'sha1'], function ($, templates, sammy, Set) {
+define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($, templates, sammy, Set) {
   storage = function(w, $){
     //var client = new Dropbox.Client({
     //      key: "Y5g6tpzxZuA=|ebh+5a8tXABfr2jyDdOxFdzQPnKR2sR3FWOCd+reVw==", sandbox: true
@@ -8,26 +8,24 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1'], function ($, templates, 
  
   var Item = function(newName) {
     //TODO calculate SHA-1 for id
-    var id;
-    var name= newName;
-    var list = {};
-    return {
-      getId: function(){
-        //TODO id in SHA-1
-        return id
-      },
-      getList: function(){
-        return list;
-      },
-      addToList: function(newVal){
-        //TODO verify it is just a word
-        tags[newVal]=undefined;
-      },
-      deleteTag: function(oldVal){
-        delete tags[oldVal]
-      }
-
+    this.id=newName;
+    this.name= newName;
+    this.list = {};
+    this.getId= function(){
+      //TODO id in SHA-1
+      return name
     };
+    getList= function(){
+      return list;
+    };
+    addToList= function(newVal){
+      //TODO verify it is just a word
+      tags[newVal]=undefined;
+    };
+    deleteTag= function(oldVal){
+      delete tags[oldVal]
+    };
+
   };
    
   (function(w, $, storage){ 
@@ -48,18 +46,26 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1'], function ($, templates, 
       },
       
       showAllUrls: function(sammy){
+        var urls = App.urls;
         var items = new Array;
         urls.keys().forEach(function(key){
           var url = urls.get(key);
-          items.push(jade.templates['url-item'](url));
+          items.push(jade.templates['url-item']({'url': url}));
         });
-        if(items.length < 0){
-          $('#items').html('There are no URLs');
+        if(items.length == 0){
+          $('#items').html('<tr><td>There are no URLs</td></tr>');
         }else{
           $('#items').html(items.join('\n'));
         }
+
+        $('#titlebar').attr('href', '#add');
       },
       addUrl: function(sammy){
+        var url = new Item($('#editUrlForm [name=urlfield]').val());
+        App.urls.add(url);
+        App.showAllUrls();
+        $('#editUrl').modal('hide');
+        return false;
       },
       viewUrl: function(sammy){
       },
@@ -72,13 +78,15 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1'], function ($, templates, 
       showAllTags: function(sammy){
       },         
       newUrl: function(sammy){
+        $('#editUrlForm').attr('action', '#urls');
+        $('#editUrl').modal('show'); 
       }
 
     };
 
     //ROUTES
     sammy( function() {
-      this.get('#urls', App.showAllUrls);
+      this.get('.*#urls', App.showAllUrls);
       this.post('#urls', App.addUrl);
       this.get('#urls/:hash', App.viewUrl);
       this.get('#urls/:hash/edit', App.editUrl);
