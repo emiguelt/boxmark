@@ -13,17 +13,17 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
     this.list = {};
     this.getId= function(){
       //TODO id in SHA-1
-      return name
+      return this.id;
     };
-    getList= function(){
-      return list;
+    this.getList= function(){
+      return this.list;
     };
-    addToList= function(newVal){
+    this.addToList= function(newVal){
       //TODO verify it is just a word
       tags[newVal]=undefined;
     };
-    deleteTag= function(oldVal){
-      delete tags[oldVal]
+    this.deleteTag= function(oldVal){
+      delete tags[oldVal];
     };
 
   };
@@ -50,7 +50,7 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
         var items = new Array;
         urls.keys().forEach(function(key){
           var url = urls.get(key);
-          items.push(jade.templates['url-item']({'url': url}));
+          items.unshift(jade.templates['url-item']({'url': url}));
         });
         if(items.length == 0){
           $('#items').html('<tr><td>There are no URLs</td></tr>');
@@ -63,8 +63,8 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
       addUrl: function(sammy){
         var url = new Item($('#editUrlForm [name=urlfield]').val());
         App.urls.add(url);
-        App.showAllUrls();
         $('#editUrl').modal('hide');
+        sammy.redirect('#urls');
         return false;
       },
       viewUrl: function(sammy){
@@ -78,6 +78,8 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
       showAllTags: function(sammy){
       },         
       newUrl: function(sammy){
+        //clean fomr
+        $('#editUrlForm input').val('');
         $('#editUrlForm').attr('action', '#urls');
         $('#editUrl').modal('show'); 
       }
