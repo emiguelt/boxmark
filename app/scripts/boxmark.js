@@ -31,6 +31,9 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
   (function(w, $, storage){ 
  
     var App = {
+      sammy: undefined,
+      currLoc: undefined,
+      prevLoc: undefined,
       urls: new Set(),
       tags: new Set(),
       init:function(){
@@ -43,6 +46,17 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
       },
       bindings: function(){
         //TODO make general bindings (buttons)
+        $('#editUrl').on('hidden', function(){
+          var newUrl;
+          if(App.currLoc == undefined){
+            newUrl='#urls';
+          }else{
+            newUrl=App.currLoc;
+          }
+
+          App.sammy.runRoute('get', newUrl);
+          App.sammy.setLocation(newUrl);
+        });
       },
       
       showAllUrls: function(sammy){
@@ -82,12 +96,22 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
         $('#editUrlForm input').val('');
         $('#editUrlForm').attr('action', '#urls');
         $('#editUrl').modal('show'); 
+      },
+      updateLoc: function(sammy){
+        if(this.path.search(/(#add)$/)>-1 
+            || this.path.indexOf(App.currLoc)>-1)
+          return;
+
+        App.prevLoc = App.currLoc;
+        App.currLoc = this.path;
       }
 
     };
 
     //ROUTES
     sammy( function() {
+      App.sammy = this;
+      this.after(App.updateLoc);
       this.get('.*#urls', App.showAllUrls);
       this.post('#urls', App.addUrl);
       this.get('#urls/:hash', App.viewUrl);
