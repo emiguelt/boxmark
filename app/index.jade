@@ -6,7 +6,7 @@ html
     link(href="css/bootstrap.min.css", rel="stylesheet", media="screen")
     link(href="css/bootstrap-responsive.min.css", rel="stylesheet", media="screen")
   body
-    div.container
+    div.container-fluid
       div#top-nav-bar.row-fluid
         div#top-left-nav.span2
           a#urlslink.pull-left.btn(href='#urls') Urls
@@ -17,7 +17,7 @@ html
       div#content.row-fluid
         div#chead.row-fluid
         table#items.row-fluid
-      div#bottom-bar.row-fluid
+      div#bottom-bar.row-fluid.navbar.navbar-fixed-bottom
         div.span4
           a(href='#up').pull-left
             i.icon-arrow-up
