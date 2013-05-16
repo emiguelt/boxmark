@@ -1,10 +1,4 @@
-define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($, templates, sammy, Set) {
-  storage = function(w, $){
-    //var client = new Dropbox.Client({
-    //      key: "Y5g6tpzxZuA=|ebh+5a8tXABfr2jyDdOxFdzQPnKR2sR3FWOCd+reVw==", sandbox: true
-    //});
-  };
-  storage(Window, $);
+define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap', 'storage'], function ($, templates, sammy, Set, sh1, bs, Storage) {
  
   var Item = function(newName) {
     //TODO calculate SHA-1 for id
@@ -39,10 +33,9 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
       init:function(){
         //TODO Initialization
         this.bindings();
+        storage.init();
+        $('#dropboxConnect').modal('show');
   
-        //really ugly tests...
-        $('#urls').html(jade.templates['url-item']({url:{href:'#test1'}}));
-        $('#urls').append(jade.templates['url-item']({url:{href:'#test2'}}));
       },
       bindings: function(){
         //TODO make general bindings (buttons)
@@ -57,6 +50,14 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
           App.sammy.runRoute('get', newUrl);
           App.sammy.setLocation(newUrl);
         });
+
+        $('#dbConnectBtn').unbind('click').click(function(){
+          storage.connect();
+        });
+      },
+
+      connectFinished: function(){
+        $('#dropboxConnect').modal('hide');
       },
       
       showAllUrls: function(sammy){
@@ -125,5 +126,5 @@ define(['jquery', 'templates', 'sammy', 'Set', 'sha1', 'bootstrap'], function ($
   
     App.init();
   
-  })(Window, $, storage);
+  })(Window, $, new Storage);
 });
